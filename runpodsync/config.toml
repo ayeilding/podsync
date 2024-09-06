@@ -1,0 +1,88 @@
+
+# Web server related configuration.
+[server]
+# HTTP server port.
+port = 8080
+
+# Configure where to store the episode data
+[storage]
+  # Could be "local" (default) for the local file system, or "s3" for a S3-compatible storage provider (e.g. AWS S3)
+  type = "local"
+
+  [storage.local]
+  data_dir = "/app/data" # Don't change if you run podsync via docker
+
+# API keys to be used to access Youtube and Vimeo.
+[tokens]
+youtube = "AIzaSyBmRMJOLJHcQORAnGyhm0L5wSeAjlPY0-I" # YouTube API Key. See https://developers.google.com/youtube/registering_an_application
+
+# The list of data sources to be hosted by Podsync.
+# These are channels, users, playlists, etc.
+[feeds]
+  [feeds.glasscannon]
+  # URL address of a channel, group, user, or playlist.
+  url = "https://www.youtube.com/@TheGlassCannon"
+
+  # The number of episodes to query each update (keep in mind, that this might drain API token)
+  page_size = 3
+
+  # How often query for updates, examples: "60m", "4h", "2h45m"
+  update_period = "24h"
+
+  quality = "high" # "high" or "low"
+  format = "video" # "audio", "video" or "custom"
+  # When format = "custom"
+  # YouTubeDL format parameter and result file extension
+  custom_format = { youtube_dl_format = "bestaudio[ext=m4a]", extension = "m4a" }
+
+  playlist_sort = "desc" # or "asc", which will fetch playlist items from the end
+
+  # Optional maximal height of video, example: 720, 1080, 1440, 2160, ...
+  max_height = 720
+
+  # Optionally include this feed in OPML file (default value: false)
+  opml = true
+
+  # Optional cron expression format for more precise update schedule.
+  # If set then overwrite 'update_period'.
+  cron_schedule = "@every 24h"
+
+  # Whether to cleanup old episodes.
+  # Keep last 10 episodes (order desc by PubDate)
+  #clean = { keep_last = 10 }
+
+  # Optional Golang regexp format.
+  # If set, then only download matching episodes.
+  # Duration filters are in seconds.
+  # max_age filter is in days.
+  filters = { not_title = "cannon fodder" }
+
+  # When set to true, podcasts indexers such as iTunes or Google Podcasts will not index this podcast
+  private_feed = true
+
+  # Optional feed customizations
+  [feeds.glasscannon.custom]
+  title = "Glass Cannon Network (YouTube)"
+  description = "In the spirit of old school D&D, a collection of super-nerds engage in actual play podcasts, streams and live shows of your favorite Tabletop RPGs! With a cast of comedians, actors and gaming personalities, the shows of the Glass Cannon Network explore the full gamut of tabletop role-playing game systems, telling captivating stories with unforgettable characters."
+  author = "glasscannonnetwork.com"
+  cover_art = "{https://yt3.googleusercontent.com/MWrGpI128cE3Z8I4OIr1R5uXL41fZfhBDFDzrxWqeeZchUUiVV4mUZA66vFKIMNfAJVkRBBH0g=s160-c-k-c0x00ffffff-no-rj}"
+  cover_art_quality = "high"
+  category = "RPG"
+  explicit = true
+  lang = "en"
+
+# Youtube-dl specific configuration.
+[downloader]
+# Optional, auto update youtube-dl every 24 hours
+self_update = true
+# Download timeout in minutes.
+timeout = 15
+
+# Optional log config. If not specified logs to the stdout
+[log]
+filename = "podsync.log"
+max_size = 50 # MB
+max_age = 30 # days
+max_backups = 7
+compress = true
+debug = false
