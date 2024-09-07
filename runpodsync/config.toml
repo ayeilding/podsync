@@ -33,7 +33,7 @@ youtube = "AIzaSyBmRMJOLJHcQORAnGyhm0L5wSeAjlPY0-I" # YouTube API Key. See https
   format = "video" # "audio", "video" or "custom"
   # When format = "custom"
   # YouTubeDL format parameter and result file extension
-  custom_format = { youtube_dl_format = "bestaudio[ext=m4a]", extension = "m4a" }
+  # custom_format = { youtube_dl_format = "bestaudio[ext=m4a]", extension = "m4a" }
 
   playlist_sort = "desc" # or "asc", which will fetch playlist items from the end
 
