@@ -21,7 +21,7 @@ youtube = "AIzaSyBmRMJOLJHcQORAnGyhm0L5wSeAjlPY0-I" # YouTube API Key. See https
 [feeds]
   [feeds.glasscannon]
   # URL address of a channel, group, user, or playlist.
-  url = "https://www.youtube.com/@TheGlassCannon"
+  url = "https://youtube.com/channel/UC83CJFLyDe72XgkKBd5a9IA"
 
   # The number of episodes to query each update (keep in mind, that this might drain API token)
   page_size = 3
