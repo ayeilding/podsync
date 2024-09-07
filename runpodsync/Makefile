@@ -31,7 +31,7 @@ run:
 
 # Show podsync logs
 .PHONY: podsynclogs
-podsynclogs:
+logs:
 	@echo "Showing podsync logs..."
 	podman exec -it podsync sh -c "cat podsync.log"
 
